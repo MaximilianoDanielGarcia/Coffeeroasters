@@ -1,0 +1,79 @@
+---
+import { ViewTransitions } from "astro:transitions";
+import NavBar from "../components/NavBar.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&display=swap"
+			rel="stylesheet"
+		/>
+		<ViewTransitions />
+	</head>
+	<body>
+		<NavBar src="/assets/shared/desktop/logo.svg"/>
+		<slot />
+		<Footer src="/assets/shared/desktop/logo-light.svg" />
+		
+		<style is:global>
+			:root {
+				--accent: 136, 58, 234;
+				--accent-light: 224, 204, 250;
+				--accent-dark: 49, 10, 101;
+				--accent-gradient: linear-gradient(
+					45deg,
+					rgb(var(--accent)),
+					rgb(var(--accent-light)) 30%,
+					white 60%
+				);
+				--green-cyan: rgb(22, 138, 134);
+				--light-green: rgb(102, 210, 207);
+				--light-gray: rgb(244, 240, 233);
+				--cream: rgb(253, 214, 186);
+				--gray: rgb(131, 136, 143);
+				--bg-dark: rgb(44, 52, 62);
+				--text-dark: rgb(51, 61, 75);
+				--text-gray: rgb(195 195 195);
+				--bg-site: rgb(254 252 247);
+			}
+			html {
+				scroll-behavior: smooth;
+			}
+
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				font-family: "Barlow", sans-serif;
+				/* font-family: "Fraunces", serif; */
+				background: var(--bg-site);
+				color: var(--gray);
+				padding-inline: 5%;
+			}
+		</style>
+	</body>
+</html>

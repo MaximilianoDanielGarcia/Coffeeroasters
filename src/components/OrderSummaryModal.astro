@@ -1,0 +1,164 @@
+---
+import Button from "./Button.astro";
+---
+<div id="modal-checkout" class="background-overlay">
+    <div class="order-summary-modal-container">
+        <h3>Order Summary</h3>
+        <div class="order-summary-modal-content">
+            <blockquote>
+                “I drink my coffee as <span class="highlight">Capsule</span>, with a <span
+                    class="highlight">Single Origin</span
+                > type of bean. <span class="highlight">250g</span> ground ala <span
+                    class="highlight">Wholebean</span
+                >, sent to me <span class="highlight">Every week</span>.”
+            </blockquote>
+            <p>Is this correct? You can proceed to checkout or go back to plan selection if something is off. Subscription discount codes can also be redeemed at the checkout.</p>
+            <div class="total-container">
+                <p class="total">$14.00 / mo</p>
+                <Button text="Checkout" href="/"/>
+            </div>
+            <div class="total-container-mobile">
+                <Button text="Checkout - $14.00 / mo" href="/"/>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+
+    const createPlanButton = document.getElementById('create-plan');
+
+    createPlanButton.addEventListener('click', () => {
+
+        const orderSummaryContainer = document.querySelector('.order-summary-container');
+        const planCreated = orderSummaryContainer.querySelector('blockquote');
+
+        const modal = document.querySelector('.order-summary-modal-container');
+
+        modal.querySelector('blockquote').innerHTML = planCreated.innerHTML;
+
+        const backgroundModal = document.getElementsByClassName('background-overlay')[0];
+
+        backgroundModal.addEventListener('click', (e) => {
+
+            e.stopPropagation();
+            backgroundModal.style.display = 'none';
+        });
+    });
+    
+</script>
+
+<style>
+
+    .background-overlay {
+        position: fixed;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    .order-summary-modal-container {
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg-site);
+        width: 565px;
+        height: 590px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 12px;
+        overflow: hidden;
+        z-index: 999;
+    }
+
+    .order-summary-modal-content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10%;
+
+    }
+
+    h3 {
+        background-color: var(--text-dark);
+        background-image: url('/assets/plan/desktop/bg-modal-top.png');
+        background-size: cover;
+        font-family: 'Fraunces', sans-serif;
+        font-weight: 900;
+        font-size: 36px;
+        color: var(--bg-site);
+        padding: 8% 10%;
+        border-top-right-radius: 12px;
+        border-top-left-radius: 12px;
+    }
+
+    blockquote {
+        color: var(--gray);
+        font-family: "Fraunces", sans-serif;
+        font-weight: 900;
+        font-size: 26px;
+        line-height: 40px;
+    }
+
+    p {
+        line-height: 26px;
+        color: var(--text-dark);
+    }
+
+    .highlight {
+        color: var(--green-cyan);
+    }
+
+    .total-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 40px;
+    }
+
+    .total {
+        font-family: "Fraunces", sans-serif;
+        font-weight: 900;
+        font-size: 32px;
+    }
+
+    .total-container-mobile {
+        display: none;
+    }
+
+    @media screen and (width <= 700px) {
+        .order-summary-modal-container {
+            width: 350px;
+            height: 590px;
+        }
+
+        h3 {
+            font-size: 28px;
+        }
+
+        blockquote {
+            font-size: 24px;
+            line-height: 36px;
+        }
+
+        p {
+            line-height: 24px;
+            font-size: 15px;
+        }
+
+        .total-container {
+            display: none;
+        }
+
+        .total-container-mobile {
+            display: grid;
+            place-items: center;
+        }
+    }
+
+</style>

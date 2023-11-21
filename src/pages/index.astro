@@ -1,0 +1,328 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import Button from "../components/Button.astro";
+import Banner from "../components/Banner.astro";
+import CardCoffee from "../components/CardCoffee.astro";
+import CardIcon from "../components/CardIcon.astro";
+import CardStep from "../components/CardStep.astro";
+---
+
+<Layout title="Welcome to Astro.">
+	<main>
+		<Banner
+			title="Great coffee made simple."
+			desc="Start your mornings with the world’s best coffees. Try our expertly curated artisan coffees from our best roasters delivered directly to your door, at your schedule."
+			src="url(/assets/home/desktop/image-hero-coffeepress.jpg)"
+			srcTablet="url(/assets/home/tablet/image-hero-coffeepress.jpg)"
+			srcMobile="url(/assets/home/mobile/image-hero-coffeepress.jpg)"
+			height="640px"
+			heightTablet="535px"
+			heightMobile="550px"
+			textbutton="Create your plan"
+			hrefbutton="/plan/"
+		/>
+
+		<section class="coffee-container">
+			<h2 class="gradiant-text">Our collection</h2>
+			<CardCoffee
+				title="Gran Espresso"
+				desc="Light and flavorful blend with cocoa and black pepper for an intense experience"
+				src="/assets/home/desktop/image-gran-espresso.png"
+			/>
+			<CardCoffee
+				title="Planalto"
+				desc="Brazilian dark roast with rich and velvety body, and hints of fruits and nuts"
+				src="/assets/home/desktop/image-planalto.png"
+			/>
+			<CardCoffee
+				title="Piccollo"
+				desc="Mild and smooth blend featuring notes of toasted almond and dried cherry"
+				src="/assets/home/desktop/image-piccollo.png"
+			/>
+			<CardCoffee
+				title="Danche"
+				desc="Ethiopian hand-harvested blend densely packed with vibrant fruit notes"
+				src="/assets/home/desktop/image-danche.png"
+			/>
+		</section>
+
+		<section class="card-icon-section">
+			<div class="card-icon-section-title">
+				<h2>Why choose us?</h2>
+				<p>
+					A large part of our role is choosing which particular
+					coffees will be featured in our range. This means working
+					closely with the best coffee growers to give you a more
+					impactful experience on every level.
+				</p>
+			</div>
+			<div class="card-icon-container">
+				<CardIcon
+					title="Best quality"
+					desc="Discover an endless variety of the world’s best artisan coffee from each of our roasters."
+					src="/assets/home/desktop/icon-coffee-bean.svg"
+				/>
+				<CardIcon
+					title="Exclusive benefits"
+					desc="Special offers and swag when you subscribe, including 30% off your first shipment."
+					src="/assets/home/desktop/icon-gift.svg"
+				/>
+				<CardIcon
+					title="Free shipping"
+					desc="We cover the cost and coffee is delivered fast. Peak freshness: guaranteed."
+					src="/assets/home/desktop/icon-truck.svg"
+				/>
+			</div>
+		</section>
+
+		<section class="card-steps-section">
+			<h3>How it works</h3>
+
+			<div class="card-step-container">
+				<CardStep
+					step="01"
+					line={true}
+					title="Pick your coffee"
+					desc="Select from our evolving range of artisan coffees. Our beans are ethically sourced and we pay fair prices for them. There are new coffees in all profiles every month for you to try out."
+				/>
+				<CardStep
+					step="02"
+					line={true}
+					title="Choose the frequency"
+					desc="Customize your order frequency, quantity, even your roast style and grind type. Pause, skip or cancel your subscription with no commitment through our online portal."
+				/>
+				<CardStep
+					step="03"
+					line={false}
+					title="Receive and enjoy!"
+					desc="We ship your package within 48 hours, freshly roasted. Sit back and enjoy award-winning world-class coffees curated to provide a distinct tasting experience."
+				/>
+			</div>
+			<Button text="Create your plan" href="/plan/"/>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		width: 100%;
+		max-width: 1440px;
+	}
+
+	.coffee-container {
+		position: relative;
+		height: 700px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 2%;
+		width: 100%;
+		margin-top: 100px;
+	}
+
+	.gradiant-text {
+		position: absolute;
+		text-align: center;
+		text-transform: lowercase;
+		font-family: "Fraunces", "sans-serif";
+		font-weight: 900;
+		width: 100%;
+		left: 50%;
+		top: -5%;
+		transform: translateX(-50%);
+		font-size: clamp(130px, 12.5vw, 230px);
+		z-index: -1;
+		background: linear-gradient(hsla(210, 2%, 16%, 0.5), #fefcf7);
+		background-clip: text;
+		-webkit-background-clip: text;
+		color: transparent;
+	}
+
+	.card-icon-section {
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
+		position: relative;
+		text-align: center;
+		background-color: var(--bg-dark);
+		background-image: url('/assets/plan/desktop/bg-steps.png');
+		background-size: cover;
+		background-repeat: no-repeat;
+		height: 600px;
+		border-radius: 12px;
+		margin-bottom: 250px;
+		padding-top: 120px;
+	}
+
+	.card-icon-section-title {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 30px;
+
+		& > p {
+			width: 535px;
+			color: lightgray;
+			line-height: 26px;
+		}
+	}
+
+	h2 {
+		font-family: "Fraunces", "sans-serif";
+		font-size: 40px;
+		color: var(--bg-site);
+	}
+
+	.card-icon-container {
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: start;
+		gap: 30px;
+		bottom: 0;
+		transform: translateY(155px);
+	}
+
+	.card-steps-section {
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: start;
+		margin-bottom: 150px;
+		gap: 80px;
+		padding-inline: 5%;
+
+		& > h3 {
+			font-family: 'Fraunces', sans-serif;
+			font-weight: 900;
+			font-size: 26px;
+		}
+	}
+
+	.card-step-container {
+		display: flex;
+		width: 100%;
+		gap: 120px;
+	}
+
+	@media screen and (width <= 1100px) {
+		.card-step-container {
+			display: flex;
+			gap: 30px;
+		}
+	}
+
+	@media screen and (width <= 900px) {
+		.coffee-container {
+			height: auto;
+			flex-direction: column;
+			align-items: start;
+			gap: 70px;
+			margin: 250px 0px 180px 0px;
+			padding-inline: 10%;
+		}
+
+		.gradiant-text {
+			font-size: clamp(80px, 14vw, 135px);
+			top: -120px;
+		}
+
+		.card-icon-section {
+			height: 1000px;
+			margin-bottom: 550px;
+			padding-top: 100px;
+		}
+
+		.card-icon-container {
+			flex-direction: column;
+			align-items: center;
+			top: 0;
+			width: 100%;
+			transform: translateY(450px);
+		}
+
+		.card-icon-section-title {
+
+			& > p {
+				width: 75%;
+				color: lightgray;
+				line-height: 32px;
+				font-size: 18px;
+			}
+		}
+
+		h2 {
+			font-size: 44px;
+		}
+
+		.card-steps-section {
+			padding-inline: 0%;
+			gap: 70px;
+
+			& > h3 {
+				font-size: 32px;
+			}
+		}
+
+		.card-step-container {
+			gap: 30px;
+			width: 100%;
+		}
+
+	}
+
+	@media screen and (width <= 750px) {
+
+		.card-steps-section {
+			justify-content: center;
+			align-items: center;
+			gap: 80px;
+			
+			& > h3 {
+				font-size: 26px;
+				width: 100%;
+				text-align: center;
+			}
+		}
+
+		.card-step-container {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			gap: 80px;
+		}
+	}
+
+	@media screen and (width <= 600px) {
+		.gradiant-text {
+			font-size: clamp(48px, 13vw, 72px);
+			top: -130px;
+		}
+
+		.card-icon-section {
+			margin-bottom: 650px;
+		}
+
+		.card-icon-section-title {
+			gap: 20px;
+
+			& > p {
+				width: 100%;
+				line-height: 26px;
+				font-size: 16px;
+				padding-inline: 20px;
+			}
+		}
+
+		h2 {
+			font-size: 32px;
+		}
+	}
+
+</style>

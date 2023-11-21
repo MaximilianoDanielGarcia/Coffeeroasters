@@ -1,0 +1,83 @@
+---
+interface Props {
+    list: string[];
+}
+
+const { list } = Astro.props;
+---
+
+<ol>
+    {
+        list &&
+            list.map((item, index) => (
+                <li>
+                    <a href=`#${index.toString()}` class:list={[{ selected: index == 0 }, { bordered: index + 1 != list.length}]}>
+                        <span class="number">0{index + 1}</span>
+                        <span class="description">{item}</span>
+                    </a>
+                </li>
+            ))
+    }
+</ol>
+
+<script>
+
+    const anchors = document.getElementsByTagName("a");
+
+    for (let i = 0; i < anchors.length; i++) {
+        anchors[i].addEventListener("click", function () {
+
+            removeSelectedClass();
+            this.classList.add("selected");
+           
+        });
+    }
+
+    function removeSelectedClass() {
+        for (let i = 0; i < anchors.length; i++) {
+            anchors[i].classList.remove('selected');
+        }
+    }
+</script>
+
+<style>
+    ol {
+        width: 100%;
+        list-style-type: none;
+        max-width: 270px;
+    }
+
+    li > a {
+        display: flex;
+        justify-content: start;
+        align-items: start;
+        gap: 30px;
+        text-decoration: none;
+        padding: 25px 0px;
+        font-family: 'Fraunces', sans-serif;
+        font-weight: 900;
+        font-size: 26px;
+        color: rgba(131, 136, 143, 0.8);
+    }
+
+    li > a:hover {
+        .number, .description {
+            color: var(--green-cyan);
+        }
+    }
+
+    .selected {
+        .number {
+            color: var(--green-cyan);
+        }
+
+        .description {
+            color: var(--text-dark);
+        }
+    }
+
+    .bordered {
+        border-bottom:  2px solid rgba(131, 136, 143, 0.4);
+    }
+
+</style>
