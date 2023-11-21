@@ -1,0 +1,275 @@
+---
+interface Props {
+    title: string;
+    desc: string;
+    src: string;
+    srcTablet?: string;
+    srcMobile?: string;
+    bgSrc?: string;
+    theme?: string;
+    reverse?: boolean;
+    direction?: string;
+}
+
+const {
+    src,
+    title,
+    desc,
+    theme,
+    reverse,
+    bgSrc,
+    direction,
+    srcTablet,
+    srcMobile,
+} = Astro.props;
+
+const bgColor = theme == "dark" ? "rgb(44, 52, 62)" : "rgb(254 252 247)";
+const colorText = theme == "dark" ? "rgb(244, 240, 233)" : "rgb(51, 61, 75)";
+const colorHeading = theme == "dark" ? "rgb(254 252 247)" : "rgb(51, 61, 75)";
+const alignImg = reverse ? "end" : "start";
+const one = reverse ? "2" : "1";
+const two = reverse ? "1" : "2";
+const top = theme == "dark" ? "-200px" : "-85px";
+---
+
+<section
+    style=`background-image: url(${bgSrc}); background-repeat: no-repeat; background-size: cover;`
+    data-flex-direction={direction}
+    data-reverse={reverse}
+>
+    <article>
+        <h2>{title}</h2>
+        <p>{desc}</p>
+    </article>
+    <div class="image">
+        <picture>
+            <source srcset={srcMobile} media="(width <= 750px)" />
+            <source srcset={srcTablet} media="(width <= 1100px)" />
+            <img src={src} alt=`${ title } image.` />
+        </picture>
+    </div>
+</section>
+
+<style
+    define:vars={{
+        colorHeading,
+        colorText,
+        bgColor,
+        alignImg,
+        one,
+        two,
+        top,
+        direction,
+    }}
+>
+    section {
+        display: grid;
+        grid-template-columns: 40% 50%;
+        justify-content: var(--alignImg);
+        align-items: start;
+        gap: 100px;
+        min-height: 450px;
+        margin: 150px 0px;
+        background-color: var(--bgColor);
+        border-radius: 12px;
+        color: var(--colorText);
+        padding: 6% 5%;
+    }
+
+    section[data-reverse] {
+        display: grid;
+        grid-template-columns: 50% 40%;
+    }
+
+    picture {
+        position: absolute;
+        top: var(--top);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    picture img {
+        border-radius: 12px;
+    }
+
+    .image {
+        position: relative;
+        order: var(--one);
+        width: 100%;
+        height: 100%;
+    }
+
+    article {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        order: var(--two);
+    }
+
+    h2 {
+        font-family: "Fraunces", sans-serif;
+        font-weight: 900;
+        font-size: 40px;
+        color: var(--colorHeading);
+    }
+
+    p {
+        width: clamp(460px, 32.5vw, 550px);
+        color: var(--colorText);
+        line-height: 28px;
+        letter-spacing: 0.15px;
+    }
+
+    @media screen and (width <= 1100px) {
+        section[data-flex-direction="column"] {
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 500px;
+            height: 100%;
+
+            & > .image > picture > img {
+                transform: scale(0.9);
+            }
+
+            & > article {
+                width: 100%;
+                align-items: center;
+                gap: 40px;
+            }
+
+            & > article > h2 {
+                text-align: center;
+                font-size: clamp(28px, 3.5vw, 32px);
+                width: 100%;
+            }
+
+            & > article > p {
+                text-align: center;
+                width: 90%;
+                font-size: 16px;
+                letter-spacing: 0.2px;
+            }
+        }
+
+        section[data-flex-direction="row"] {
+            grid-template-columns: 40% 60%;
+            place-items: center;
+            gap: 30px;
+
+            & picture {
+                top: -5%;
+                left: 50%;
+            }
+
+            & > article {
+                width: 100%;
+                max-width: 390px;
+                align-items: center;
+                gap: 40px;
+            }
+
+            & > article > h2 {
+                text-align: left;
+                font-size: clamp(28px, 3.5vw, 32px);
+                width: 100%;
+            }
+
+            & > article > p {
+                text-align: left;
+                width: 100%;
+                font-size: 15px;
+                letter-spacing: 0.2px;
+            }
+        }
+
+        .grid {
+            grid-template-columns: 40% 60%;
+            align-items: start;
+            justify-content: start;
+            gap: 20px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+    }
+
+    @media screen and (width <= 750px) {
+        section[data-flex-direction="row"] {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            margin: 100px 0px;
+
+            .image {
+                width: 100%;
+                max-width: 390px;
+            }
+
+            & picture {
+                position: initial;
+                top: 0px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            & picture > img {
+                width: 100%;
+            }
+
+            & > article {
+                width: 100%;
+                max-width: 390px;
+                align-items: center;
+                justify-content: center;
+                gap: 40px;
+            }
+
+            & > article > h2 {
+                text-align: center !important;
+                font-size: 32px;
+                width: 100%;
+            }
+
+            & > article > p {
+                text-align: center !important;
+                width: 100%;
+                font-size: 15px;
+                letter-spacing: 0.2px;
+                line-height: 26px;
+            }
+        }
+
+        section[data-flex-direction="column"] {
+            margin: 100px 0px;
+            padding-bottom: 50px;
+
+            & > .image {
+                width: 100%;
+            }
+
+            & > .image > picture {
+                top: -110px;
+                width: 75%;
+                min-width: 300px;
+
+            }
+
+            & > .image > picture > img {
+                width: 100%;
+            }
+
+            & > article > p {
+                text-align: center !important;
+                width: 90%;
+                font-size: 15px;
+                letter-spacing: 0.2px;
+                line-height: 26px;
+            }
+        }
+    }
+</style>

@@ -1,0 +1,93 @@
+---
+interface Props {
+	title: string;
+	address: string;
+    city: string;
+    state: string;
+    tel: string;
+	src: string;
+}
+
+const { src, title, address, city, state, tel } = Astro.props;
+---
+
+<div class="card-country">
+
+    <img src=`${ src }`>
+    <div class="article">
+        <h3>{ title }</h3>
+        <div class="info">
+            <p>{ address }</p>
+            <p>{ city }</p>
+            <p>{ state }</p>
+            <p>{ tel }</p>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    .card-country {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: end;
+        gap: 50px;
+        max-width: 320px;
+        min-width: 160px;
+
+        & > img {
+            width: 100px;
+        }
+    }
+
+    .article {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    h3 {
+        font-family: 'Fraunces', sans-serif;
+        font-weight: 900;
+        font-size: 32px;
+        text-wrap: nowrap;
+        color: var(--text-dark);
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        color: var(--text-dark);
+    }
+
+    @media screen and (width <= 1050px) {
+        h3 {
+            font-size: 24px;
+        }
+    }
+
+    @media screen and (width <= 700px) {
+
+        .card-country {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 50px;
+            max-width: 320px;
+            min-width: 160px;
+
+            & > img {
+                width: 100px;
+            }
+        }
+
+        h3 {
+            font-size: 28px;
+        }
+    }
+
+</style>

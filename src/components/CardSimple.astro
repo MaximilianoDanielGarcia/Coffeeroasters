@@ -1,0 +1,114 @@
+---
+interface Props {
+	title: string;
+	desc: string;
+    selected?: boolean;
+}
+
+const { title, desc, selected } = Astro.props;
+
+---
+
+<div class:list={['card-simple', { selected: selected }]}>
+    <h3>{ title }</h3>
+    <p>{ desc }</p>
+</div>
+
+<script>
+
+    const cardSimple = document.querySelectorAll('.card-simple');
+
+    cardSimple.forEach((card) => {
+        card.addEventListener('click', () => {
+
+            let parentElement = card.parentElement;
+
+            let cardsSelected = parentElement.querySelectorAll('.selected');
+
+            cardsSelected.forEach((c) => { c.classList.remove('selected')})
+
+            card.classList.add('selected')
+        });
+    });
+</script>
+
+<style>
+
+    .card-simple {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        width: 240px;
+        min-width: 240px;
+        height: 260px;
+        background: var(--light-gray);
+        border-radius: 8px;
+        padding: 40px 30px;
+        cursor: pointer;
+    }
+
+    h3 {
+        font-family: 'Fraunces', sans-serif;
+        font-weight: 900;
+        font-size: 24px;
+        color: var(--text-dark);
+    }
+
+    p {
+        line-height: 26px;
+        letter-spacing: 0.2px;
+        color: var(--text-dark);
+    }
+
+    .card-simple:hover {
+        background: var(--cream);
+    }
+
+    .card-simple.selected {
+        background: var(--green-cyan);
+
+        & h3, p {
+            
+            color: var(--bg-site);
+        }
+    }
+
+    @media screen and (width <= 900px) {
+        .card-simple {
+            gap: 30px;
+            width: 100%;
+            min-width: 200px;
+        }
+
+        h3 {
+            font-size: 23px;
+        }
+
+        p {
+            line-height: 24px;
+            font-size: 15px;
+        }
+    }
+
+    @media screen and (width <= 750px) {
+        .card-simple {
+            gap: 20px;
+            width: 100%;
+            min-width: 200px;
+            height: 160px;
+            justify-content: center;
+        }
+
+        h3 {
+            font-size: 26px;
+        }
+
+        p {
+            line-height: 26px;
+            font-size: 16px;
+        }
+    }
+    
+
+</style>
+

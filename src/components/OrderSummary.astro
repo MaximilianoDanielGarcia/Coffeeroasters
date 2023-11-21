@@ -1,0 +1,66 @@
+---
+
+---
+
+<div class="order-summary-container">
+    <h3>Order Summary</h3>
+    <blockquote>
+        “I drink my coffee as <span class="highlight">Capsule</span>, with a <span
+            class="highlight">Single Origin</span
+        > type of bean. <span class="highlight">250g</span> ground ala <span
+            class="highlight">Wholebean</span
+        >, sent to me <span class="highlight">Every week</span>.”
+    </blockquote>
+</div>
+
+<script>
+    const panels = document.getElementsByClassName("panel");
+    const cards = document.querySelectorAll(".card-simple");
+    const fieldsets = document.getElementsByClassName("highlight");
+
+    cards.forEach((card) => {
+        card.addEventListener("click", () => {
+
+            for (let index = 0; index < panels.length; index++) {
+                const panel = panels[index];
+                let optionSelected = panel.getElementsByClassName("selected")[0].firstChild.textContent;
+
+                fieldsets[index].innerHTML = optionSelected;
+            }
+        });
+    });
+</script>
+
+<style>
+    .order-summary-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        background-color: var(--bg-dark);
+        background-image: url('/assets/plan/desktop/bg-order-summary.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+        border-radius: 12px;
+        padding: 35px 25px;
+    }
+
+    h3 {
+        color: var(--gray);
+        text-transform: uppercase;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    blockquote {
+        color: var(--bg-site);
+        font-family: "Fraunces", sans-serif;
+        font-weight: 900;
+        font-size: 24px;
+        line-height: 36px;
+    }
+
+    .highlight {
+        color: var(--green-cyan);
+    }
+</style>

@@ -1,0 +1,231 @@
+---
+import Accordion from "../components/Accordion.astro";
+import Banner from "../components/Banner.astro";
+import Button from "../components/Button.astro";
+import CardSimple from "../components/CardSimple.astro";
+import CardStep from "../components/CardStep.astro";
+import OrderList from "../components/OrderList.astro";
+import OrderSummary from "../components/OrderSummary.astro";
+import OrderSummaryModal from "../components/OrderSummaryModal.astro";
+import Layout from "../layouts/Layout.astro";
+import data from "../pages/data.json";
+
+let list = [];
+
+data.data.forEach((e) => {
+	list.push(e.type);
+});
+---
+
+<Layout title="Welcome to Astro.">
+	<main>
+		<Banner
+			title="Create a plan"
+			desc="Build a subscription plan that best fits your needs. We offer an assortment of the best artisan coffees from around the globe delivered fresh to your door."
+			src="url(/assets/plan/desktop/image-hero-blackcup.jpg)"
+			srcTablet="url(/assets/plan/tablet/image-hero-blackcup.jpg)"
+			srcMobile="url(/assets/plan/mobile/image-hero-blackcup.jpg)"
+			height="500"
+		/>
+
+		<div class="card-step-container">
+			<CardStep
+				step="01"
+				line={true}
+				theme="dark"
+				title="Pick your coffee"
+				desc="Select from our evolving range of artisan coffees. Our beans are ethically sourced and we pay fair prices for them. There are new coffees in all profiles every month for you to try out."
+			/>
+			<CardStep
+				step="02"
+				line={true}
+				theme="dark"
+				title="Choose the frequency"
+				desc="Customize your order frequency, quantity, even your roast style and grind type. Pause, skip or cancel your subscription with no commitment through our online portal."
+			/>
+			<CardStep
+				step="03"
+				line={false}
+				theme="dark"
+				title="Receive and enjoy!"
+				desc="We ship your package within 48 hours, freshly roasted. Sit back and enjoy award-winning world-class coffees curated to provide a distinct tasting experience."
+			/>
+		</div>
+
+		<section class="create-plan-section">
+			<div>
+				<div class="list-container"
+					style="position: sticky; z-index: 10; top: 0; left: 0; width: 300px;"
+				>
+					<OrderList list={list} />
+				</div>
+			</div>
+			<div class="accordion-container">
+				{
+					data &&
+						data.data &&
+						data.data.map((item, index) => (
+							<Accordion
+								id={index.toString()}
+								title={item.question}
+							>
+								<div class="cards-simple-container">
+									{item.options.map((option, index) => (
+										<CardSimple
+											title={option.title}
+											desc={option.desc}
+											selected={index === 0}
+										/>
+									))}
+								</div>
+							</Accordion>
+						))
+				}
+
+				<div class="summary-button-container">
+					<OrderSummary />
+					<Button text="Create my plan!" id="create-plan"/>
+				</div>
+			</div>
+		</section>
+		<OrderSummaryModal />
+	</main>
+	
+</Layout>
+
+<script>
+
+	const modal = document.getElementById('modal-checkout');
+	const createPlanButton = document.getElementById('create-plan');
+
+	createPlanButton.addEventListener('click', () => {
+		modal.style.display = 'block';
+	});
+
+</script>
+
+<style>
+	main {
+		margin: auto;
+		width: 100%;
+		max-width: 1440px;
+	}
+
+	.card-step-container {
+		display: flex;
+		gap: 120px;
+		background-color: var(--bg-dark);
+		background-image: url('/assets/plan/desktop/bg-steps.png');
+		background-repeat: no-repeat;
+		background-size: cover;
+		border-radius: 12px;
+		padding: 7% 5%;
+		margin: 160px 0px;
+	}
+
+	.create-plan-section {
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		width: 100%;
+		padding-inline: 2%;
+	}
+
+	.list-container {
+		position: sticky; 
+		z-index: 10; 
+		top: 0; 
+		left: 0; 
+		width: 300px;
+	}
+
+	.accordion-container {
+		margin-bottom: 150px;
+		width: 790px;
+	}
+
+	.summary-button-container {
+		display: flex;
+		flex-direction: column;
+		align-items: end;
+		gap: 50px;
+		margin-top: 60px;
+		padding-inline: 18px;
+	}
+
+	.cards-simple-container {
+		display: flex; 
+		justify-content: end;
+		gap: 15px;
+		margin: 50px 0px;
+		width: fit-content;
+	}
+
+	@media screen and (width <= 1250px) {
+		.create-plan-section {
+			display: grid;
+			grid-template-columns: 1fr;
+			place-items: center;
+			width: 100%;
+			padding-inline: 0%;
+		}
+
+		.list-container {
+			display: none;
+		}
+	}
+
+	@media screen and (width <= 1100px) {
+
+		.card-step-container {
+			display: flex;
+			gap: 30px;
+			padding: 7% 5%;
+			margin: 160px 0px;
+		}
+
+		.accordion-container {
+			margin-bottom: 150px;
+			width: 100%;
+		}
+	}
+
+	@media screen and (width <= 815px) {
+
+		.card-step-container {
+			display: flex;
+			gap: 10px;
+			padding: 7% 2%;
+			margin: 160px 0px 100px 0px;
+		}
+	}
+
+	@media screen and (width <= 750px) {
+
+		.card-step-container {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			padding: 80px 0px;
+			gap: 80px;
+		}
+
+		.cards-simple-container {
+			flex-direction: column;
+			justify-content: center;
+			gap: 15px;
+			margin: 50px 0px;
+			width: 100%;
+		}
+	}
+
+	@media  screen and (width <= 450px) {
+		.summary-button-container {
+			align-items: center;
+			justify-content: center;
+			padding-inline: 0px;
+		}
+	}
+
+</style>

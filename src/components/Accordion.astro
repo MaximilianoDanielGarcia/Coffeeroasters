@@ -1,0 +1,93 @@
+---
+interface Props {
+    title: string;
+    id?: string;
+}
+
+const { title, id } = Astro.props;
+---
+
+<div id={id}>
+    <button class="accordion">{title}</button>
+    <div class="panel">
+        <slot />
+    </div>
+</div>
+
+<script>
+    const acc = document.getElementsByClassName("accordion");
+
+    for (let i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+
+            console.log(panel.style.maxHeight);
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight =  "0px";
+            }
+        });
+    }
+</script>
+
+<style>
+    /* Style the buttons that are used to open and close the accordion panel */
+    .accordion {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: "Fraunces", sans-serif;
+        font-weight: 900;
+        font-size: 32px;
+        background-color: var(--bg-site);
+        color: var(--gray);
+        cursor: pointer;
+        padding: 15px;
+        width: 100%;
+        text-align: left;
+        border: none;
+        outline: none;
+        transition: 0.4s;
+    }
+
+    /* Style the accordion panel. Note: hidden by default */
+    .panel {
+        padding: 0 18px;
+        background-color: var(--bg-site);
+        max-height: 360px;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+
+    .accordion:after {
+        content: "";
+        background-image: url('/assets/plan/desktop/icon-arrow.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 20px;
+        height: 20px;
+    }
+
+    .active:after {
+        transform: rotate(180deg);
+    }
+
+    @media screen and (width <= 900px) {
+        .accordion {
+            font-size: 28px;
+        }
+    }
+
+    @media screen and (width <= 750px) {
+        .accordion {
+            font-size: 26px;
+        }
+
+        .panel {
+            padding: 0px;
+            max-height: 600px;
+        }
+    }
+</style>
