@@ -2,8 +2,13 @@
 
 - [Live site here](https://symphonious-basbousa-8fec5c.netlify.app/)
 
+## Screenshots
 
+![Desktop screenshot](/public/screenshots/desktop.jpeg)
 
+![Tablet screenshot](/public/screenshots/tablet.jpeg)
+
+![Mobile screenshot](/public/screenshots/mobile.jpeg)
 
 # Astro Starter Kit: Basics
 
